@@ -43,3 +43,5 @@ public class Program
         }
     }
 }
+// This program loads scriptures from a file, chooses one at random, and hides words progressively until the entire scripture is hidden.
+// The user can specify the number of words to hide each time by modifying the HideRandomWords method call.
