@@ -1,32 +1,45 @@
 using System;
 
-class Program
+public class Program
 {
-    static void Main(string[] args)
+    public static void Main()
     {
-        // Test default constructor
-        Fraction f1 = new Fraction();
-        Console.WriteLine(f1.GetFractionString()); // Should print "1/1"
-        Console.WriteLine(f1.GetDecimalValue());  // Should print "1"
+        ScriptureLibrary scriptureLibrary = new ScriptureLibrary();
 
-        // Test constructor with one parameter
-        Fraction f2 = new Fraction(5);
-        Console.WriteLine(f2.GetFractionString()); // Should print "5/1"
-        Console.WriteLine(f2.GetDecimalValue());  // Should print "5"
+        // Use the full path to the scriptures.txt file
+        string filePath = @"C:\Users\USER\OneDrive\Desktop\Desktop\CSE210-PROJECT\cse210-projects\prove\Develop03\scriptures.txt";
 
-        // Test constructor with two parameters
-        Fraction f3 = new Fraction(3, 4);
-        Console.WriteLine(f3.GetFractionString()); // Should print "3/4"
-        Console.WriteLine(f3.GetDecimalValue());  // Should print "0.75"
+        scriptureLibrary.LoadFromFile(filePath);
 
-        Fraction f4 = new Fraction(1, 3);
-        Console.WriteLine(f4.GetFractionString()); // Should print "1/3"
-        Console.WriteLine(f4.GetDecimalValue());  // Should print "0.3333333333333333"
+        if (scriptureLibrary.Scriptures.Count == 0)
+        {
+            Console.WriteLine("No scriptures found in the library. Please check the scriptures.txt file.");
+            return;
+        }
 
-        // Test getters and setters
-        f4.Top = 2;
-        f4.Bottom = 5;
-        Console.WriteLine(f4.GetFractionString()); // Should print "2/5"
-        Console.WriteLine(f4.GetDecimalValue());  // Should print "0.4"
+        Scripture scripture = scriptureLibrary.GetRandomScripture();
+
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine(scripture);
+            Console.WriteLine("\nPress Enter to hide words or type 'quit' to exit.");
+
+            string input = Console.ReadLine();
+            if (input.ToLower() == "quit")
+            {
+                break;
+            }
+
+            scripture.HideRandomWords(3);
+
+            if (scripture.IsFullyHidden())
+            {
+                Console.Clear();
+                Console.WriteLine(scripture);
+                Console.WriteLine("\nAll words are hidden. Program will now exit.");
+                break;
+            }
+        }
     }
 }
