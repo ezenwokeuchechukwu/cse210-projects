@@ -1,9 +1,20 @@
 using System;
+using System.Collections.Generic;
 
-class Program
+public class Program
 {
-    static void Main(string[] args)
+    public static void Main()
     {
-        Console.WriteLine("Hello Foundation4 World!");
+        var running = new Running(new DateTime(2024, 7, 1), 30, 3.0);
+        var cycling = new Cycling(new DateTime(2024, 7, 2), 45, 15.0);
+        var swimming = new Swimming(new DateTime(2024, 7, 3), 60, 40);
+
+        List<Activity> activities = new List<Activity> { running, cycling, swimming };
+
+        foreach (var activity in activities)
+        {
+            Console.WriteLine(activity.GetSummary());
+            Console.WriteLine(new string('-', 50));
+        }
     }
 }
